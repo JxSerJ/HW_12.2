@@ -2,7 +2,7 @@ import json
 
 
 def load_file(path: str) -> list:
-    with open(path, "r", encoding="utf-8") as file:
+    with open(path, 'r', encoding='UTF-8') as file:
         data = json.load(file)
     return data
 

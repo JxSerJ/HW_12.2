@@ -1,2 +1,2 @@
-POST_PATH = "data/posts.json"
-UPLOAD_FOLDER = "/uploads/images"
+POST_PATH = 'posts.json'
+UPLOAD_FOLDER = "uploads/images"

@@ -1,14 +1,15 @@
 from flask import Flask, request, render_template, send_from_directory
-from functions import load_file
 from config import POST_PATH, UPLOAD_FOLDER
-
-posts_data = load_file(POST_PATH)
+from functions import load_file
+from main.view import photo_viewer
 
 app = Flask(__name__)
 
-from main.view import photo_viewer
 
 app.register_blueprint(photo_viewer)
+
+DATA = load_file(POST_PATH)
+print(DATA)
 
 
 @app.route("/list")
