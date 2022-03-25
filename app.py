@@ -4,7 +4,7 @@ from loader.views import post_loader
 from search.views import search
 
 app = Flask(__name__)
-app.config["EXPLAIN_TEMPLATE_LOADING"] = True
+app.config["EXPLAIN_TEMPLATE_LOADING"] = False
 app.config['MAX_CONTENT_LENGTH'] = 2 * 1024 * 1024
 
 app.register_blueprint(search)
@@ -23,4 +23,4 @@ def too_large_file(err):
     return render_template("loader_error.html", url_css=url_css, error=error), 413
 
 
-app.run(debug=True)
+app.run(debug=False)
