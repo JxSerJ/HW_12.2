@@ -7,8 +7,6 @@ from loader.config import ALLOWED_EXTENSIONS
 
 post_loader = Blueprint("post_loader", __name__, template_folder="loader_templates")
 
-error = None
-
 
 @post_loader.route("/post", methods=["GET"])
 def loader_page():
@@ -20,7 +18,7 @@ def loader_page():
 def load_post_page():
     url_css = url_for("static", filename="style.css")
 
-    global error
+    error = None
 
     picture = request.files.get("picture")
     if picture:
