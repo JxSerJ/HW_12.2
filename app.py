@@ -1,27 +1,26 @@
-from flask import Flask, request, render_template, send_from_directory
-from config import POST_PATH, UPLOAD_FOLDER
-from functions import load_file, post_search
-from main.views import photo_viewer
+from flask import Flask, render_template, send_from_directory, url_for
+
 from loader.views import post_loader
+from search.views import search
 
 app = Flask(__name__)
 app.config["EXPLAIN_TEMPLATE_LOADING"] = True
+app.config['MAX_CONTENT_LENGTH'] = 2 * 1024 * 1024
 
-app.register_blueprint(photo_viewer)
+app.register_blueprint(search)
 app.register_blueprint(post_loader)
 
-posts_list = load_file(POST_PATH)
 
-
-@app.route("/list")
-def page_tag():
-    pass
-
-
-@app.route("/uploads/<path:path>", methods=["POST"])
+@app.route("/uploads/<path:path>", methods=["GET"])
 def static_dir(path):
-    picture = request.files.get("picture")
     return send_from_directory("uploads", path)
+
+
+@app.errorhandler(413)
+def too_large_file(err):
+    url_css = url_for("static", filename="style.css")
+    error = f"Превышен максимальный размер файла ({app.config['MAX_CONTENT_LENGTH'] / 1024 / 1024} МБ)"
+    return render_template("loader_error.html", url_css=url_css, error=error), 413
 
 
 app.run(debug=True)

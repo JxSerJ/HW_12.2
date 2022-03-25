@@ -1,7 +1,7 @@
 import json
 
 
-def load_file(path: str) -> list:
+def load_file(path: str) -> list | str:
     with open(path, 'r', encoding='UTF-8') as file:
         data = json.load(file)
     return data

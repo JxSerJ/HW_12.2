@@ -21,6 +21,14 @@
 
     <a href="/post" class="button">Добавить пост</a>
 
+        {% for post in found_posts %}
+        <div class="post">
+            <img src="{{ post.pic }}" width="100%" alt="">
+            <p>{{ post.content }} </p>
+        </div>
+        <hr>
+        {% endfor %}
+
 </main>
 </body>
 </html>
