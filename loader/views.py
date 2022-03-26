@@ -2,7 +2,7 @@ from flask import Blueprint, render_template, url_for, request
 from datetime import datetime
 
 from loader.functions import add_post_into_json
-from config import POST_PATH
+from config import POST_PATH, UPLOAD_FOLDER
 from loader.config import ALLOWED_EXTENSIONS
 
 post_loader = Blueprint("post_loader", __name__, template_folder="loader_templates")
@@ -27,9 +27,9 @@ def load_post_page():
             picture_name = picture.filename[:-len(file_name_extension) - 1]
             file_full_name = f"{picture_name}_{datetime.now().strftime('%d%m%Y_%H%M%S')}.{file_name_extension}"
 
-            url_pic = f"./uploads/images/{file_full_name}"
+            url_pic = f"{UPLOAD_FOLDER}/{file_full_name}"
             try:
-                picture.save(f"./uploads/images/{file_full_name}")
+                picture.save(url_pic)
             except:
                 error = "Данные не загружены"
                 return render_template("loader_error.html", url_css=url_css, error=error)
